@@ -12,6 +12,10 @@ set -ouex pipefail
 # this installs a package from fedora repos
 dnf5 install -y ckb-next
 
+#change imageinfo for fastfetch
+jq '.["image-name"]="blueraptor" | .["image-ref"]="ostree-image-signed:docker://ghcr.io/thegreatzach/blueraptor"' /usr/share/ublue-os/image-info.json > /tmp/image-info.json && mv /tmp/image-info.json /usr/share/ublue-os/image-info.json
+
+
 # Use a COPR Example:
 #
 # dnf5 -y copr enable ublue-os/staging
