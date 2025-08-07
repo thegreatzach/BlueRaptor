@@ -15,7 +15,7 @@ dnf5 install -y ckb-next vrms-rpm
 #change imageinfo for fastfetch
 jq '.["image-name"]="blueraptor" | .["image-ref"]="ostree-image-signed:docker://ghcr.io/thegreatzach/blueraptor"' /usr/share/ublue-os/image-info.json > /tmp/image-info.json && mv /tmp/image-info.json /usr/share/ublue-os/image-info.json
 
-jq '.modules = (.modules[:-2] + [{"type":"command","key":"📦 VRMS","text":"vrms-rpm --licence-list tweaked --grammar spdx-lenient | head -n 1 | tr -d '\''\\n'\''","shell":"/bin/bash"},{"type":"command","key":"📦 VRMS","text":"vrms-rpm --licence-list tweaked --grammar spdx-lenient | head -n 2 | tail -n 1 | tr -d '\''\\n'\''","shell":"/bin/bash"}]+ .modules[-2:])' /usr/share/ublue-os/fastfetch.jsonc > /tmp/image-info.json && mv /tmp/image-info.json /usr/share/ublue-os/fastfetch.jsonc
+jq '.modules = (.modules[:-2] + [{"type":"command","key":"📦 VRMS","text":"vrms-rpm --licence-list tweaked --grammar spdx-lenient | head -n 1 | tr -d '\''\n'\''","shell":"/bin/bash"},{"type":"command","key":"📦 VRMS","text":"vrms-rpm --licence-list tweaked --grammar spdx-lenient | head -n 2 | tail -n 1 | tr -d '\''\n'\''","shell":"/bin/bash"}]+ .modules[-2:])' /usr/share/ublue-os/fastfetch.jsonc > /tmp/image-info.json && mv /tmp/image-info.json /usr/share/ublue-os/fastfetch.jsonc
 
 # Use a COPR Example:
 #
