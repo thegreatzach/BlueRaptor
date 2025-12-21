@@ -25,10 +25,10 @@ jq '.["image-name"]="blueraptor" | .["image-ref"]="ostree-image-signed:docker://
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disable ublue-os/staging
 
-dnf5 config-manager --add-repo https://us-central1-yum.pkg.dev/projects/antigravity-auto-updater-dev/antigravity-rpm
-dnf5 makecache
+#dnf5 config-manager --add-repo https://us-central1-yum.pkg.dev/projects/antigravity-auto-updater-dev/antigravity-rpm
+#dnf5 makecache
 
-dnf5 install antigravity
+#dnf5 install antigravity
 
 #### Example for enabling a System Unit File
 
