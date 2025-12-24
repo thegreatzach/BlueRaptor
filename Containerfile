@@ -24,6 +24,8 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build.sh && \
     ostree container commit
+
+COPY /ctx/steam.desktop /usr/share/wayland-sessions/steam.desktop
     
 ### LINTING
 ## Verify final image and contents are correct.
