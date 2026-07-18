@@ -14,6 +14,10 @@ dnf5 install -y ckb-next vrms-rpm
 
 dnf5 install -y steam gamescope mangohud
 
+dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release{,-extras,-mesa}
+
+dnf5 --enable-repo=terra-mesa --enable-repo=terra -y install scopebuddy
+
 #change imageinfo for fastfetch
 jq '.["image-name"]="blueraptor" | .["image-ref"]="ostree-image-signed:docker://ghcr.io/thegreatzach/blueraptor"' /usr/share/ublue-os/image-info.json > /tmp/image-info.json && mv /tmp/image-info.json /usr/share/ublue-os/image-info.json
 
