@@ -18,10 +18,18 @@ dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/te
 
 dnf5 --enable-repo=terra-mesa --enable-repo=terra -y install scopebuddy
 
-mkdir -p /usr/lib/extest/ && \
-curl -Lo /usr/lib/extest/libextest.so \
-  "$(curl -s https://api.github.com/repos/ublue-os/extest/releases/latest \
-     | jq -r '.assets[] | select(.name | test("\\.so$")).browser_download_url')" && \
+mkdir -p /usr/lib/extest /usr/lib64/extest
+EXTEST_RELEASE=$(curl -fsSL https://api.github.com/repos/ublue-os/extest/releases/latest)
+for asset in libextest.so libextest64.so; do
+    url=$(jq -r --arg name "$asset" \
+        '.assets[] | select(.name == $name).browser_download_url' <<< "$EXTEST_RELEASE")
+    if [[ "$asset" == "libextest64.so" ]]; then
+        destination=/usr/lib64/extest/libextest.so
+    else
+        destination=/usr/lib/extest/libextest.so
+    fi
+    curl -fsSL "$url" -o "$destination"
+done
 setfattr -n user.component -v "extest" /usr/lib/extest/libextest.so
 
 #change imageinfo for fastfetch
