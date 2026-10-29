@@ -46,7 +46,14 @@ jq '.["image-name"]="blueraptor" | .["image-ref"]="ostree-image-signed:docker://
 # dnf5 -y copr disable ublue-os/staging
 
 dnf5 -y copr enable scottames/ghostty
-dnf5 -y install ghostty
+
+dnf5 -y install ghostty \
+  --exclude=ghostty-bash-completion \
+  --exclude=ghostty-fish-completion \
+  --exclude=ghostty-zsh-completion \
+  --exclude=ghostty-terminfo \
+  --exclude=ghostty-shell-integration
+
 dnf5 -y copr disable scottames/ghostty
 
 #dnf5 config-manager --add-repo https://us-central1-yum.pkg.dev/projects/antigravity-auto-updater-dev/antigravity-rpm
