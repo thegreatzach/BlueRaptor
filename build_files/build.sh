@@ -12,25 +12,25 @@ set -ouex pipefail
 # this installs a package from fedora repos
 dnf5 install -y ckb-next vrms-rpm
 
-dnf5 install -y steam gamescope mangohud
+# dnf5 install -y steam gamescope mangohud
 
-dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release{,-extras,-mesa}
+# dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release{,-extras,-mesa}
 
-dnf5 --enable-repo=terra-mesa --enable-repo=terra -y install scopebuddy
+# dnf5 --enable-repo=terra-mesa --enable-repo=terra -y install scopebuddy
 
-mkdir -p /usr/lib/extest /usr/lib64/extest
-EXTEST_RELEASE=$(curl -fsSL https://api.github.com/repos/ublue-os/extest/releases/latest)
-for asset in libextest.so libextest64.so; do
-    url=$(jq -r --arg name "$asset" \
-        '.assets[] | select(.name == $name).browser_download_url' <<< "$EXTEST_RELEASE")
-    if [[ "$asset" == "libextest64.so" ]]; then
-        destination=/usr/lib64/extest/libextest.so
-    else
-        destination=/usr/lib/extest/libextest.so
-    fi
-    curl -fsSL "$url" -o "$destination"
-done
-setfattr -n user.component -v "extest" /usr/lib/extest/libextest.so
+# mkdir -p /usr/lib/extest /usr/lib64/extest
+# EXTEST_RELEASE=$(curl -fsSL https://api.github.com/repos/ublue-os/extest/releases/latest)
+# for asset in libextest.so libextest64.so; do
+#     url=$(jq -r --arg name "$asset" \
+#         '.assets[] | select(.name == $name).browser_download_url' <<< "$EXTEST_RELEASE")
+#     if [[ "$asset" == "libextest64.so" ]]; then
+#         destination=/usr/lib64/extest/libextest.so
+#     else
+#         destination=/usr/lib/extest/libextest.so
+#     fi
+#     curl -fsSL "$url" -o "$destination"
+# done
+# setfattr -n user.component -v "extest" /usr/lib/extest/libextest.so
 
 #change imageinfo for fastfetch
 jq '.["image-name"]="blueraptor" | .["image-ref"]="ostree-image-signed:docker://ghcr.io/thegreatzach/blueraptor"' /usr/share/ublue-os/image-info.json > /tmp/image-info.json && mv /tmp/image-info.json /usr/share/ublue-os/image-info.json
